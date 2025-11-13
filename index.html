@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="hr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Panonicana</title>
+        <link
+            rel="shortcut icon"
+            href="/img/panonicana.svg"
+            type="image/x-icon"
+        />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="preconnect" href="https://fonts.bunny.net" />
+        <link
+            href="https://fonts.bunny.net/css?family=open-sans:400,500,600|playfair-display:500,700,700i,900,900i|shadows-into-light:400"
+            rel="stylesheet"
+        />
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            gold: {
+                                50: '#fefce8',
+                                200: '#fef08a',
+                                500: '#eab308',
+                                600: '#ca8a04',
+                                700: '#a16207',
+                                950: '#422006',
+                            },
+                            'background-light': '#ffffff',
+                            'background-dark': '#1a1a1a',
+                            primary: '#eab308',
+                        },
+                    },
+                },
+            };
+        </script>
+        <style>
+            header {
+                font-family: 'Playfair';
+                font-weight: bold;
+            }
+
+            body {
+                font-family: 'Open Sans';
+            }
+
+            .hero-section-image {
+                background-image: url('/img/hero_640.webp');
+                background-size: cover;
+                background-position: center;
+            }
+
+            @media (min-width: 768px) {
+                .hero-section-image {
+                    background-image: url('/img/hero_1920.webp');
+                }
+            }
+
+            .drop-shadow-glow {
+                text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            }
+
+            .hamburger-container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 1.5rem;
+                height: 1.5rem;
+                position: relative;
+            }
+
+            .hamburger-line {
+                display: block;
+                width: 1.5rem;
+                height: 0.125rem;
+                background-color: #1a1a1a;
+                border-radius: 0.125rem;
+                position: absolute;
+                transition: all 0.3s ease-in-out;
+                transform-origin: center;
+            }
+
+            .hamburger-line:nth-child(1) {
+                top: 6px;
+            }
+
+            .hamburger-line:nth-child(2) {
+                top: 12px;
+            }
+
+            .hamburger-line:nth-child(3) {
+                top: 18px;
+            }
+
+            .hamburger-line.active:nth-child(1) {
+                transform: rotate(45deg) translateY(6px);
+            }
+
+            .hamburger-line.active:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger-line.active:nth-child(3) {
+                transform: rotate(-45deg) translateY(-6px);
+            }
+
+            #mobile-menu {
+                display: none;
+            }
+        </style>
+    </head>
+
+    <body class="bg-white text-gray-900">
+        <header class="bg-gold-500 shadow shadow-gray-400 font-playfair">
+            <div
+                class="container mx-auto flex items-center justify-between py-4 px-6"
+            >
+                <span>
+                    <a href="/" class="flex items-center gap-2">
+                        <img
+                            src="/img/panonicana.svg"
+                            alt="Panonicana"
+                            class="h-10"
+                        />
+                        Panonicana
+                    </a>
+                </span>
+
+                <nav class="hidden md:flex space-x-6 font-medium">
+                    <a
+                        href="/products"
+                        class="px-3 py-2 rounded hover:bg-gold-700 transition-colors"
+                        >Proizvodi</a
+                    >
+                    <a
+                        href="/about"
+                        class="px-3 py-2 rounded hover:bg-gold-700 transition-colors"
+                        >O nama</a
+                    >
+                </nav>
+
+                <div class="md:hidden">
+                    <button
+                        onclick="toggleMenu()"
+                        class="p-2 rounded hover:bg-gold-700 transition-all"
+                    >
+                        <div class="hamburger-container">
+                            <span class="hamburger-line" id="line1"></span>
+                            <span class="hamburger-line" id="line2"></span>
+                            <span class="hamburger-line" id="line3"></span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <div
+                id="mobile-menu"
+                class="md:hidden bg-gold-500 px-6 pb-4 space-y-2"
+            >
+                <a
+                    href="/about"
+                    class="mobile-link block p-2 hover:bg-gold-700 rounded transition-colors"
+                    onclick="toggleMenu()"
+                    >O nama</a
+                >
+                <a
+                    href="/products"
+                    class="mobile-link block p-2 hover:bg-gold-700 rounded transition-colors"
+                    onclick="toggleMenu()"
+                    >Proizvodi</a
+                >
+            </div>
+        </header>
+
+        <main class="flex-1 container mx-auto bg-white rounded p-2 mt-4">
+            <div class="mx-auto w-full max-w-7xl px-4">
+                <section
+                    class="hero-section-image mt-8 relative flex min-h-[600px] flex-col items-start justify-center rounded-xl bg-center bg-cover text-white shadow-black/40 shadow-lg"
+                >
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent rounded-xl"
+                    ></div>
+
+                    <div
+                        class="relative z-10 min-h-[400px] mt-[200px] max-w-2xl space-y-4 p-4"
+                    >
+                        <h1
+                            class="text-5xl font-extrabold tracking-tight md:text-6xl lg:text-7xl drop-shadow-glow"
+                        >
+                            Otkrijte Snagu Prirode
+                        </h1>
+                        <p class="text-lg text-white/95 drop-shadow-glow">
+                            Panonicana nudi vrhunske CBD proizvode izrađene od
+                            organski uzgojene konoplje, osiguravajući čistoću i
+                            snagu za vaše blagostanje.
+                        </p>
+                        <a
+                            href="#products"
+                            class="absolute bottom-4 left-4 rounded-lg bg-gold-500 px-10 py-4 text-lg font-extrabold text-black uppercase transition hover:bg-gold-700"
+                        >
+                            Istraži proizvode
+                        </a>
+                    </div>
+                </section>
+
+                <section class="my-40 sm:my-40">
+                    <div
+                        class="relative grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6"
+                    >
+                        <div
+                            class="group/badge relative flex h-40 flex-col items-center justify-center gap-2 rounded-xl border border-primary/20 bg-background-light p-4 text-center transition-all duration-300 hover:z-50 hover:border-none"
+                        >
+                            <div
+                                class="absolute inset-0 flex h-full w-full items-center justify-center overflow-visible rounded-xl p-4 opacity-0 translate-y-0 transition-all duration-200 ease-out group-hover/badge:opacity-100 group-hover/badge:translate-y-16 group-hover/badge:bg-white group-hover/badge:border group-hover/badge:border-primary/20 group-hover/badge:shadow-xl"
+                            >
+                                <p class="text-sm text-background-dark/70">
+                                    Naša konoplja raste na netaknutim poljima,
+                                    bez pesticida i kemikalija.
+                                </p>
+                            </div>
+                            <div
+                                class="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-lg transition-all duration-300 group-hover/badge:-translate-y-16 group-hover/badge:bg-gold-500"
+                            >
+                                <img
+                                    src="/img/eco.svg"
+                                    alt="eco svg"
+                                    class="h-16 w-16"
+                                />
+                                <h3 class="text-base font-bold">
+                                    100% organski uzgoj
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div
+                            class="group/badge relative flex h-40 flex-col items-center justify-center gap-2 rounded-xl border border-primary/20 bg-background-light p-4 text-center transition-all duration-300 hover:z-50 hover:border-none"
+                        >
+                            <div
+                                class="absolute inset-0 flex h-full w-full items-center justify-center overflow-visible rounded-xl p-4 opacity-0 translate-y-0 transition-all duration-200 ease-out group-hover/badge:opacity-100 group-hover/badge:translate-y-16 group-hover/badge:bg-white group-hover/badge:border group-hover/badge:border-primary/20 group-hover/badge:shadow-xl"
+                            >
+                                <p class="text-sm text-background-dark/70">
+                                    Koristimo regenerativne prakse za
+                                    poboljšanje zdravlja tla i bioraznolikosti.
+                                </p>
+                            </div>
+                            <div
+                                class="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-lg transition-all duration-300 group-hover/badge:-translate-y-16 group-hover/badge:bg-gold-500"
+                            >
+                                <img
+                                    src="/img/compost.svg"
+                                    alt="compost svg"
+                                    class="h-16 w-16"
+                                />
+                                <h3 class="text-base font-bold">Živo tlo</h3>
+                            </div>
+                        </div>
+
+                        <div
+                            class="group/badge relative flex h-40 flex-col items-center justify-center gap-2 rounded-xl border border-primary/20 bg-background-light p-4 text-center transition-all duration-300 hover:z-50 hover:border-none"
+                        >
+                            <div
+                                class="absolute inset-0 flex h-full w-full items-center justify-center overflow-visible rounded-xl p-4 opacity-0 translate-y-0 transition-all duration-200 ease-out group-hover/badge:opacity-100 group-hover/badge:translate-y-16 group-hover/badge:bg-white group-hover/badge:border group-hover/badge:border-primary/20 group-hover/badge:shadow-xl"
+                            >
+                                <p class="text-sm text-background-dark/70">
+                                    Naše biljke uživaju u prirodnoj sunčevoj
+                                    svjetlosti za potpuni profil kanabinoida.
+                                </p>
+                            </div>
+                            <div
+                                class="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-lg transition-all duration-300 group-hover/badge:-translate-y-16 group-hover/badge:bg-gold-500"
+                            >
+                                <img
+                                    src="/img/sunny.svg"
+                                    alt="sunny svg"
+                                    class="h-16 w-16"
+                                />
+                                <h3 class="text-base font-bold">
+                                    Uzgoj na otvorenom
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div
+                            class="group/badge relative flex h-40 flex-col items-center justify-center gap-2 rounded-xl border border-primary/20 bg-background-light p-4 text-center transition-all duration-300 hover:z-50 hover:border-none"
+                        >
+                            <div
+                                class="absolute inset-0 flex h-full w-full items-center justify-center overflow-visible rounded-xl p-4 opacity-0 translate-y-0 transition-all duration-200 ease-out group-hover/badge:opacity-100 group-hover/badge:translate-y-16 group-hover/badge:bg-white group-hover/badge:border group-hover/badge:border-primary/20 group-hover/badge:shadow-xl"
+                            >
+                                <p class="text-sm text-background-dark/70">
+                                    Svaki cvijet se pažljivo bira ručno kako bi
+                                    se osigurala najviša kvaliteta.
+                                </p>
+                            </div>
+                            <div
+                                class="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-lg transition-all duration-300 group-hover/badge:-translate-y-16 group-hover/badge:bg-gold-500"
+                            >
+                                <img
+                                    src="/img/grass.svg"
+                                    alt="grass svg"
+                                    class="h-16 w-16"
+                                />
+                                <h3 class="text-base font-bold">
+                                    Ručno branje
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div
+                            class="group/badge relative flex h-40 flex-col items-center justify-center gap-2 rounded-xl border border-primary/20 bg-background-light p-4 text-center transition-all duration-300 hover:z-50 hover:border-none"
+                        >
+                            <div
+                                class="absolute inset-0 flex h-full w-full items-center justify-center overflow-visible rounded-xl p-4 opacity-0 translate-y-0 transition-all duration-200 ease-out group-hover/badge:opacity-100 group-hover/badge:translate-y-16 group-hover/badge:bg-white group-hover/badge:border group-hover/badge:border-primary/20 group-hover/badge:shadow-xl"
+                            >
+                                <p class="text-sm text-background-dark/70">
+                                    Biljke se čuvaju u hladnim uvjetima kako bi
+                                    se sačuvali vrijedni terpeni.
+                                </p>
+                            </div>
+                            <div
+                                class="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-lg transition-all duration-300 group-hover/badge:-translate-y-16 group-hover/badge:bg-gold-500"
+                            >
+                                <img
+                                    src="/img/ac_unit.svg"
+                                    alt="ac unit svg"
+                                    class="h-16 w-16"
+                                />
+                                <h3 class="text-base font-bold">
+                                    Hladno skladištenje
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div
+                            class="group/badge relative flex h-40 flex-col items-center justify-center gap-2 rounded-xl border border-primary/20 bg-background-light p-4 text-center transition-all duration-300 hover:z-50 hover:border-none"
+                        >
+                            <div
+                                class="absolute inset-0 flex h-full w-full items-center justify-center overflow-visible rounded-xl p-4 opacity-0 translate-y-0 transition-all duration-200 ease-out group-hover/badge:opacity-100 group-hover/badge:translate-y-16 group-hover/badge:bg-white group-hover/badge:border group-hover/badge:border-primary/20 group-hover/badge:shadow-xl"
+                            >
+                                <p class="text-sm text-background-dark/70">
+                                    Koristimo organski etanol za sigurnu i čistu
+                                    ekstrakciju kanabinoida.
+                                </p>
+                            </div>
+                            <div
+                                class="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-lg transition-all duration-300 group-hover/badge:-translate-y-16 group-hover/badge:bg-gold-500"
+                            >
+                                <img
+                                    src="/img/science.svg"
+                                    alt="science svg"
+                                    class="h-16 w-16"
+                                />
+                                <h3 class="text-base font-bold">
+                                    Ekstrakcija etanolom
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="my-20 space-y-20 sm:my-28 sm:space-y-28">
+                    <div
+                        class="grid items-center gap-12 md:grid-cols-2 md:gap-24 shadow-black/40 shadow-lg bg-gold-50 rounded-xl p-4"
+                    >
+                        <div class="space-y-4">
+                            <p
+                                class="font-bold uppercase tracking-wider text-gold-950"
+                            >
+                                CBD
+                            </p>
+                            <h3 class="text-3xl font-bold">
+                                Prirodna potpora za vaš um i tijelo
+                            </h3>
+                            <p class="text-lg text-background-dark/70">
+                                Naše CBD ulje i pasta nude prirodan način za
+                                ublažavanje stresa, poboljšanje sna i smanjenje
+                                upala. Otkrijte blagodati CBD-a za opuštanje i
+                                oporavak.
+                            </p>
+                            <div class="mt-6 space-y-3">
+                                <div class="flex items-start gap-3">
+                                    <img
+                                        src="/img/psychology.svg"
+                                        alt="Psychology svg"
+                                        class="h-10 w-10"
+                                    />
+                                    <div>
+                                        <h4 class="font-semibold">
+                                            Ublažavanje stresa i anksioznosti
+                                        </h4>
+                                        <p class="text-background-dark/70">
+                                            CBD pomaže u smirivanju živčanog
+                                            sustava.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <img
+                                        src="/img/sleep_score.svg"
+                                        alt="Sleep svg"
+                                        class="h-10 w-10"
+                                    />
+                                    <div>
+                                        <h4 class="font-semibold">
+                                            Poboljšan san
+                                        </h4>
+                                        <p class="text-background-dark/70">
+                                            Podržava dubok i miran san.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <img
+                                        src="/img/local_fire_department.svg"
+                                        alt="Fire svg"
+                                        class="h-10 w-10"
+                                    />
+                                    <div>
+                                        <h4 class="font-semibold">
+                                            Smanjenje upala
+                                        </h4>
+                                        <p class="text-background-dark/70">
+                                            Pomaže u ublažavanju bolova i
+                                            nelagode.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mt-8 border-l-4 border-gold-500 bg-gold-200 p-5 rounded-xl"
+                            >
+                                <h4 class="font-bold text-lg">Zanimljivost</h4>
+                                <p
+                                    class="mt-1 text-base text-background-dark/70"
+                                >
+                                    CBD je jedan od preko 100 kanabinoida
+                                    pronađenih u konoplji. Za razliku od THC-a,
+                                    nema psihoaktivne učinke i legalan je u
+                                    mnogim zemljama, uključujući Hrvatsku. Naš
+                                    endokanabinoidni sustav prirodno reagira na
+                                    CBD, što može pomoći u održavanju ravnoteže
+                                    (homeostaze) u tijelu.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="h-full">
+                            <img
+                                alt="CBD ulje"
+                                class="h-full rounded-lg object-cover"
+                                src="/img/cbd-product_1280.webp"
+                            />
+                        </div>
+                    </div>
+
+                    <div
+                        class="grid items-center gap-12 md:grid-cols-2 md:gap-24 shadow-black/40 shadow-lg bg-gold-50 rounded-xl p-4"
+                    >
+                        <div class="space-y-4 md:order-2">
+                            <p
+                                class="font-bold uppercase tracking-wider text-gold-950"
+                            >
+                                CBG
+                            </p>
+                            <h3 class="text-3xl font-bold">
+                                Otkrijte Potencijal "Majke Kanabinoida"
+                            </h3>
+                            <p class="text-lg text-background-dark/70">
+                                Naše CBG ulje je formulirano da iskoristi
+                                jedinstvena svojstva kanabigerola, nudeći
+                                podršku za fokus, crijevno zdravlje i borbu
+                                protiv upala.
+                            </p>
+                            <div class="mt-6 space-y-3">
+                                <div class="flex items-start gap-3">
+                                    <img
+                                        src="/img/neurology.svg"
+                                        alt="Neurology svg"
+                                        class="h-10 w-10"
+                                    />
+                                    <div>
+                                        <h4 class="font-semibold">
+                                            Potpora za fokus i kognitivne
+                                            funkcije
+                                        </h4>
+                                        <p class="text-background-dark/70">
+                                            CBG može pomoći u poboljšanju
+                                            mentalne jasnoće.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <img
+                                        src="/img/gastroenterology.svg"
+                                        alt="Gastro svg"
+                                        class="h-10 w-10"
+                                    />
+                                    <div>
+                                        <h4 class="font-semibold">
+                                            Zdravlje probavnog sustava
+                                        </h4>
+                                        <p class="text-background-dark/70">
+                                            Pomaže u smirivanju crijevnih upala.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <img
+                                        src="/img/shield.svg"
+                                        alt="Shield svg"
+                                        class="h-10 w-10"
+                                    />
+                                    <div>
+                                        <h4 class="font-semibold">
+                                            Neuroprotektivna svojstva
+                                        </h4>
+                                        <p class="text-background-dark/70">
+                                            Pruža zaštitu živčanim stanicama.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="mt-8 border-l-4 border-gold-500 bg-gold-200 p-5 rounded-xl"
+                            >
+                                <h4 class="font-bold text-lg">Zanimljivost</h4>
+                                <p
+                                    class="mt-1 text-base text-background-dark/70"
+                                >
+                                    CBG se naziva 'majka svih kanabinoida' jer
+                                    je CBGA (njegov kiseli oblik) prekursor iz
+                                    kojeg nastaju svi drugi kanabinoidi,
+                                    uključujući CBD i THC. U zreloj biljci ga
+                                    ima u manjim količinama jer se većinom već
+                                    transformirao u druge spojeve.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="h-full md:order-1">
+                            <img
+                                alt="CBG ulje"
+                                class="h-full rounded-lg object-cover"
+                                src="/img/cbd-product_1280.webp"
+                            />
+                        </div>
+                    </div>
+                </section>
+
+                <section class="my-20 py-16 sm:my-28 sm:py-24">
+                    <div class="mx-auto max-w-4xl text-center">
+                        <h2
+                            class="text-4xl font-extrabold tracking-tight sm:text-5xl"
+                        >
+                            Od naših polja do vaše dobrobiti
+                        </h2>
+                        <p
+                            class="mx-auto mt-6 max-w-2xl text-lg text-background-dark/70"
+                        >
+                            Vjerujemo u transparentnost i kvalitetu, donoseći
+                            vam najbolje od prirode u svakoj kapi. Naša
+                            predanost počinje s pažljivim odabirom sjemena i
+                            organskim uzgojem na našim poljima, a završava
+                            vrhunskim proizvodima koji stižu do vas.
+                        </p>
+                        <a
+                            href="#products"
+                            class="mt-10 inline-block rounded-xl bg-gold-500 px-16 py-6 text-xl font-bold text-background-dark transition-colors hover:bg-gold-600"
+                        >
+                            Istraži proizvode
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer class="bg-gold-500 py-8 text-center text-sm border-t mt-6">
+            &copy; 2025 Panonicana. Sva prava pridržana.
+        </footer>
+
+        <script>
+            function toggleMenu() {
+                const menu = document.getElementById('mobile-menu');
+                const line1 = document.getElementById('line1');
+                const line2 = document.getElementById('line2');
+                const line3 = document.getElementById('line3');
+                const links = document.querySelectorAll('.mobile-link');
+
+                const isOpen = menu.style.display === 'block';
+
+                if (!isOpen) {
+                    // Otvori menu
+                    menu.style.display = 'block';
+                    gsap.fromTo(
+                        menu,
+                        { y: -20, opacity: 0, height: 0 },
+                        {
+                            y: 0,
+                            opacity: 1,
+                            height: 'auto',
+                            duration: 0.4,
+                            ease: 'power2.out',
+                        }
+                    );
+                    gsap.from(links, {
+                        opacity: 0,
+                        y: 10,
+                        duration: 0.3,
+                        stagger: 0.1,
+                        ease: 'power2.out',
+                        delay: 0.1,
+                    });
+
+                    // Animiraj hamburger
+                    line1.classList.add('active');
+                    line2.classList.add('active');
+                    line3.classList.add('active');
+                } else {
+                    // Zatvori menu
+                    gsap.to(links, {
+                        opacity: 0,
+                        y: -10,
+                        duration: 0.2,
+                        stagger: 0.05,
+                        ease: 'power2.in',
+                    });
+                    gsap.to(menu, {
+                        opacity: 0,
+                        height: 0,
+                        duration: 0.3,
+                        ease: 'power2.in',
+                        onComplete: () => {
+                            menu.style.display = 'none';
+                            gsap.set(links, { opacity: 1, y: 0 });
+                        },
+                    });
+
+                    // Resetiraj hamburger
+                    line1.classList.remove('active');
+                    line2.classList.remove('active');
+                    line3.classList.remove('active');
+                }
+            }
+        </script>
+    </body>
+</html>
