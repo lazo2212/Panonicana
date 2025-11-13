@@ -77,22 +77,21 @@
             }
 
             .hamburger-container {
+                width: 24px; /* isto kao w-6 */
+                height: 24px; /* isto kao h-6 */
+                position: relative;
                 display: flex;
-                flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                width: 1.5rem;
-                height: 1.5rem;
-                position: relative;
+                cursor: pointer;
             }
 
             .hamburger-line {
-                display: block;
-                width: 1.5rem;
-                height: 0.125rem;
-                background-color: #1a1a1a;
-                border-radius: 0.125rem;
                 position: absolute;
+                width: 100%;
+                height: 2px; /* isto kao h-0.5 */
+                background-color: #1a1a1a;
+                border-radius: 2px;
                 transition: all 0.3s ease-in-out;
                 transform-origin: center;
             }
@@ -109,16 +108,18 @@
                 top: 18px;
             }
 
-            .hamburger-line.active:nth-child(1) {
-                transform: rotate(45deg) translateY(6px);
+            .hamburger-container.active .hamburger-line:nth-child(1) {
+                transform: rotate(45deg);
+                top: 12px; /* centriraj rotiranu liniju */
             }
 
-            .hamburger-line.active:nth-child(2) {
+            .hamburger-container.active .hamburger-line:nth-child(2) {
                 opacity: 0;
             }
 
-            .hamburger-line.active:nth-child(3) {
-                transform: rotate(-45deg) translateY(-6px);
+            .hamburger-container.active .hamburger-line:nth-child(3) {
+                transform: rotate(-45deg);
+                top: 12px; /* centriraj rotiranu liniju */
             }
 
             #mobile-menu {
@@ -161,10 +162,13 @@
                         onclick="toggleMenu()"
                         class="p-2 rounded hover:bg-gold-700 transition-all"
                     >
-                        <div class="hamburger-container">
-                            <span class="hamburger-line" id="line1"></span>
-                            <span class="hamburger-line" id="line2"></span>
-                            <span class="hamburger-line" id="line3"></span>
+                        <div
+                            class="hamburger-container"
+                            onclick="this.classList.toggle('active')"
+                        >
+                            <span class="hamburger-line"></span>
+                            <span class="hamburger-line"></span>
+                            <span class="hamburger-line"></span>
                         </div>
                     </button>
                 </div>
