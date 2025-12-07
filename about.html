@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="hr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Panonicana - O nama</title>
+        <link
+            rel="shortcut icon"
+            href="/img/panonicana.svg"
+            type="image/x-icon"
+        />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="preconnect" href="https://fonts.bunny.net" />
+        <link
+            href="https://fonts.bunny.net/css?family=open-sans:400,500,600|playfair-display:500,700,700i,900,900i|shadows-into-light:400"
+            rel="stylesheet"
+        />
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            gold: {
+                                50: '#fffaf0', //
+                                100: '#fff3d1',
+                                200: '#ffe7a8',
+                                300: '#ffdb7f',
+                                400: '#ffcf56',
+                                500: '#ffd700',
+                                600: '#e6be00',
+                                700: '#cca700',
+                                800: '#b38f00',
+                                900: '#997800',
+                                950: '#664f00',
+                            },
+                            dropShadow: {
+                                glow: '0 2px 4px rgba(0, 0, 0, 0.8)',
+                            },
+                        },
+                    },
+                },
+            };
+        </script>
+        <style>
+            header {
+                font-family: 'Playfair';
+                font-weight: bold;
+            }
+
+            body {
+                font-family: 'Open Sans';
+            }
+
+            .logo img {
+                filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.5));
+            }
+
+            .hero-section-image {
+                background-image: url('/img/hero_640.webp');
+                background-size: cover;
+                background-position: center;
+            }
+
+            @media (min-width: 768px) {
+                .hero-section-image {
+                    background-image: url('/img/hero_1920.webp');
+                }
+            }
+
+            .drop-shadow-glow {
+                text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            }
+
+            .hamburger-container {
+                width: 24px; /* isto kao w-6 */
+                height: 24px; /* isto kao h-6 */
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+            }
+
+            .hamburger-line {
+                position: absolute;
+                width: 100%;
+                height: 2px; /* isto kao h-0.5 */
+                background-color: #1a1a1a;
+                border-radius: 2px;
+                transition: all 0.3s ease-in-out;
+                transform-origin: center;
+            }
+
+            .hamburger-line:nth-child(1) {
+                top: 6px;
+            }
+
+            .hamburger-line:nth-child(2) {
+                top: 12px;
+            }
+
+            .hamburger-line:nth-child(3) {
+                top: 18px;
+            }
+
+            .hamburger-container.active .hamburger-line:nth-child(1) {
+                transform: rotate(45deg);
+                top: 12px; /* centriraj rotiranu liniju */
+            }
+
+            .hamburger-container.active .hamburger-line:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger-container.active .hamburger-line:nth-child(3) {
+                transform: rotate(-45deg);
+                top: 12px; /* centriraj rotiranu liniju */
+            }
+
+            #mobile-menu {
+                display: none;
+            }
+        </style>
+    </head>
+
+    <body class="bg-white text-gray-900">
+        <header class="bg-gold-500 shadow shadow-gray-400 font-playfair">
+            <div
+                class="container mx-auto flex items-center justify-between py-4 px-6"
+            >
+                <span class="logo">
+                    <a href="/" class="flex items-center gap-2">
+                        <img
+                            src="/img/panonicana.svg"
+                            alt="Panonicana"
+                            class="h-10"
+                        />
+                        Panonicana
+                    </a>
+                </span>
+
+                <nav class="hidden md:flex space-x-6 font-medium">
+                    <a
+                        href="/products"
+                        class="px-3 py-2 rounded hover:bg-gold-700 transition-colors"
+                        >Proizvodi</a
+                    >
+                    <a
+                        href="/about.html"
+                        class="px-3 py-2 rounded hover:bg-gold-700 transition-colors"
+                        >O nama</a
+                    >
+                </nav>
+
+                <div class="md:hidden">
+                    <button
+                        onclick="toggleMenu()"
+                        class="p-2 rounded hover:bg-gold-700 transition-all"
+                    >
+                        <div
+                            class="hamburger-container"
+                            onclick="this.classList.toggle('active')"
+                        >
+                            <span class="hamburger-line"></span>
+                            <span class="hamburger-line"></span>
+                            <span class="hamburger-line"></span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <div
+                id="mobile-menu"
+                class="md:hidden bg-gold-500 px-6 pb-4 space-y-2"
+            >
+                <a
+                    href="/about.html"
+                    class="mobile-link block p-2 hover:bg-gold-700 rounded transition-colors"
+                    onclick="toggleMenu()"
+                    >O nama</a
+                >
+                <a
+                    href="/products"
+                    class="mobile-link block p-2 hover:bg-gold-700 rounded transition-colors"
+                    onclick="toggleMenu()"
+                    >Proizvodi</a
+                >
+            </div>
+        </header>
+
+        <main class="flex-1 container mx-auto bg-white rounded p-2 mt-4">
+            <div class="mx-auto w-full max-w-7xl">
+                <section>
+                    <h2
+                        class="text-2xl font-extrabold tracking-tight md:text-3xl lg:text-4xl text-center p-4"
+                    >
+                        Naša Priča
+                    </h2>
+                    <p class="mb-2">
+                        Naša priča počinje jednostavnom željom — stvoriti
+                        proizvod koji je u potpunosti prirodan, transparentan i
+                        dosljedan kvaliteti koju bismo i sami željeli koristiti.
+                        Smješteni u mirnom, poljoprivrednom dijelu
+                        sjeverozapadne Hrvatske, okruženi poljima, čistim zrakom
+                        i sezonskim ritmom prirode, pronašli smo idealno mjesto
+                        za uzgoj konoplje koja raste u svom najčišćem obliku.
+                    </p>
+                    <p class="mb-2">
+                        Umjesto masovne proizvodnje, odlučili smo se za mali,
+                        ručni pristup. Svaka biljka koju uzgojimo ima svoju
+                        priču: od prve klice, preko rasta u živoj zemlji, pa sve
+                        do trenutka kada postane ekstrakt namijenjen poboljšanju
+                        dobrobiti naših korisnika.
+                    </p>
+                    <p class="mb-2">
+                        Vjerujemo u strpljenje, poštenje i prirodu — a svaki naš
+                        proizvod odraz je te filozofije.
+                    </p>
+                </section>
+
+                <section>
+                    <h2
+                        class="text-2xl font-extrabold tracking-tight md:text-3xl lg:text-4xl text-center p-4 mt-8"
+                    >
+                        Uzgoj
+                    </h2>
+                    <article class="mb-4">
+                        <h3
+                            class="text-xl font-bold tracking-tight md:text-2xl lg:text-3xl"
+                        >
+                            Od sjemena do presađivanja
+                        </h3>
+                        <p>
+                            Sve počinje od pažljivo odabranog certificiranog
+                            sjemena. Sjeme klija u kontroliranim uvjetima, gdje
+                            pazimo na vlagu, temperaturu i čistoću medija. Mlade
+                            biljke razvijaju snažan korijen prije presađivanja —
+                            što je ključ za zdrav rast u fazi vegetacije.
+                        </p>
+                        <p>
+                            U ovoj fazi ne koristimo nikakve stimulanse ni
+                            umjetne dodatke. Cilj je da biljka razvije
+                            <b>prirodnu otpornost</b> i stabilnost.
+                        </p>
+                    </article>
+
+                    <article class="mb-4">
+                        <h3
+                            class="text-xl font-bold tracking-tight md:text-2xl lg:text-3xl"
+                        >
+                            Od presađivanja do cvatnje
+                        </h3>
+                        <p>
+                            Nakon presađivanja na otvoreno, biljke rastu u
+                            <b>živoj, organskoj zemlji</b> obogaćenoj kompostom,
+                            glistincem i pokrovnim kulturama. Tlo se ne
+                            prekopava — koristimo <b>no-till tehniku</b>, koja
+                            čuva mikroorganizme, gljive i strukturu zemlje.
+                        </p>
+                        <p>
+                            Biljke rastu pod prirodnim suncem bez pesticida i
+                            kemikalija. Redovito se prate, vezuju i usmjeravaju
+                            ručno kako bi se osigurao optimalan protok zraka i
+                            zdrava struktura.
+                        </p>
+                        <p>
+                            U ovoj fazi biljka razvija svoj karakter — list,
+                            stabljiku, aromu i snagu.
+                        </p>
+                    </article>
+
+                    <article class="mb-4">
+                        <h3
+                            class="text-xl font-bold tracking-tight md:text-2xl lg:text-3xl"
+                        >
+                            Od cvatnje do berbe
+                        </h3>
+                        <p>
+                            Kako se dani skraćuju, biljka ulazi u cvatnju. Ovo
+                            je najosjetljiviji i najvažniji period, pa ga
+                            pratimo precizno:
+                        </p>
+                        <ul class="list-disc ms-10">
+                            <li>miris</li>
+                            <li>profil terpena</li>
+                            <li>sadržaj kanabinoida</li>
+                            <li>optimalna vlažnost za skladištenje</li>
+                        </ul>
+                        <p>
+                            Nakon sušenja, cvijet se ručno reže i sprema u
+                            <b>hladno skladište</b>, gdje čuva svježinu do
+                            ekstrakcije.
+                        </p>
+                    </article>
+                </section>
+
+                <section>
+                    <h2
+                        class="text-2xl font-extrabold tracking-tight md:text-3xl lg:text-4xl text-center p-4 mt-8"
+                    >
+                        Ekstrakcija
+                    </h2>
+                    <article class="mb-4">
+                        <h3
+                            class="text-xl font-bold tracking-tight md:text-2xl lg:text-3xl"
+                        >
+                            Priprema i skladištenje cvijeta prije ekstrakcije
+                        </h3>
+                        <p>
+                            Osušeni cvijet se skladišti u
+                            <b>nepropusnim posudama</b>, u prostoriji s niskom
+                            temperaturom i stabilnom vlagom.
+                        </p>
+                        <p>
+                            Na ovaj način čuvaju se ključni spojevi — posebno
+                            osjetljivi terpeni.
+                        </p>
+                        <p>
+                            Neposredno prije ekstrakcije, cvijet se dodatno
+                            pregledava i čisti od mogućih nečistoća, kako bi
+                            ekstrakt bio maksimalno čist i siguran.
+                        </p>
+                    </article>
+                    <article class="mb-4">
+                        <h3
+                            class="text-xl font-bold tracking-tight md:text-2xl lg:text-3xl"
+                        >
+                            Proces ekstrakcije
+                        </h3>
+                        <p>
+                            Koristimo hladnu etanolnu ekstrakciju, jednu od
+                            najčistijih i najpouzdanijih metoda za full spectrum
+                            ekstrakte.
+                        </p>
+                        <p>Prednosti ove metode:</p>
+                        <ul class="list-disc ms-10">
+                            <li>izvlači širok spektar kanabinoida</li>
+                            <li>čuva većinu terpena</li>
+                            <li>
+                                ne ostavlja teške metale niti toksična otapala
+                            </li>
+                            <li>
+                                omogućuje preciznu filtraciju i kontrolu čistoće
+                            </li>
+                        </ul>
+                        <p>
+                            Proces se odvija u certificiranom laboratoriju koji
+                            radi prema visokim sigurnosnim standardima.
+                        </p>
+                    </article>
+                    <article class="mb-4">
+                        <h3
+                            class="text-xl font-bold tracking-tight md:text-2xl lg:text-3xl"
+                        >
+                            Analiza
+                        </h3>
+                        <p>
+                            Svaki batch prolazi kroz testiranje u akreditiranom
+                            laboratoriju:
+                        </p>
+                        <ul class="list-disc ms-10">
+                            <li>
+                                analiza kanabinoida (CBD, CBG, THC, CBC, itd.)
+                            </li>
+                            <li>provjera pesticida i herbicida</li>
+                            <li>mikrobiološki testovi</li>
+                            <li>testovi na teške metale</li>
+                            <li>analiza rezidualnih otapala</li>
+                        </ul>
+                        <p>
+                            Mi vjerujemo da kupac treba znati što koristi — zato
+                            su naši rezultati dostupni svima.
+                        </p>
+                    </article>
+                </section>
+
+                <section>
+                    <h2
+                        class="text-2xl font-extrabold tracking-tight md:text-3xl lg:text-4xl text-center p-4 mt-8"
+                    >
+                        Proizvod
+                    </h2>
+                    <article class="mb-4">
+                        <h3
+                            class="text-xl font-bold tracking-tight md:text-2xl lg:text-3xl"
+                        >
+                            Što Je Naš Proizvod
+                        </h3>
+                        <p>
+                            Naš proizvod je full spectrum ekstrakt industrijske
+                            konoplje, dobiven iz pažljivo uzgojenih, ručno
+                            ubranih i kontrolirano osušenih cvjetova.
+                        </p>
+                        <p>
+                            Radi se o prirodnom biljnom koncentratu koji sadrži
+                            širok raspon kanabinoida, terpena i antioksidansa —
+                            sve ono što konoplju čini jedinstvenom i korisnom za
+                            ljudski organizam.
+                        </p>
+                    </article>
+                    <article class="mb-4">
+                        <h3
+                            class="text-xl font-bold tracking-tight md:text-2xl lg:text-3xl"
+                        >
+                            Što Sadrži
+                        </h3>
+                        <ul class="list-disc ms-10">
+                            <li>
+                                <b>CBD</b> ili <b>CBG</b> kao primarni
+                                kanabinoid
+                            </li>
+                            <li>
+                                manji kanabinoidi poput <b>CBC</b>, <b>CBDV</b>,
+                                <b>CBN</b> (ovisno o batchu)
+                            </li>
+                            <li>
+                                prirodni terpeni odgovorni za aromu i biološku
+                                aktivnost
+                            </li>
+                            <li>biljni flavonoidi i antioksidansi</li>
+                        </ul>
+                        <p>
+                            Ništa ne dodajemo umjetno. Ništa ne filtriramo do
+                            razine izolata.
+                        </p>
+                        <p>
+                            Čuvamo <b>prirodni fitokemijski profil</b> biljke —
+                            upravo onakav kakav je u cvijetu.
+                        </p>
+                    </article>
+
+                    <article class="mb-4">
+                        <h3
+                            class="text-xl font-bold tracking-tight md:text-2xl lg:text-3xl"
+                        >
+                            Kako Djeluje
+                        </h3>
+                        <p>
+                            Naš ekstrakt djeluje kroz
+                            <b>endokanabinoidni sustav (ECS)</b> — biološku
+                            mrežu koja regulira:
+                        </p>
+                        <ul class="list-disc ms-10">
+                            <li>san</li>
+                            <li>raspoloženje</li>
+                            <li>stres</li>
+                            <li>upalne procese</li>
+                            <li>kognitivne funkcije</li>
+                            <li>imunološki odgovor</li>
+                        </ul>
+                        <p>
+                            Full spectrum ekstrakti koriste prednost
+                            <b>entourage efekta</b>, gdje kanabinoidi i terpeni
+                            međusobno pojačavaju djelovanje.
+                        </p>
+                        <p>To može rezultirati:</p>
+                        <ul class="list-disc ms-10">
+                            <li>boljom apsorpcijom</li>
+                            <li>stabilnijim učinkom</li>
+                            <li>prirodnijim osjećajem ravnoteže</li>
+                        </ul>
+                        <p>
+                            CBD i CBG nisu psihoaktivni i ne uzrokuju osjećaj
+                            opijenosti.
+                        </p>
+                    </article>
+                    <article class="mb-4">
+                        <h3
+                            class="text-xl font-bold tracking-tight md:text-2xl lg:text-3xl"
+                        >
+                            Zašto Je Poseban
+                        </h3>
+                        <p>
+                            Naš ekstrakt razlikuje se od većine dostupnih
+                            proizvoda jer je rezultat:
+                        </p>
+                        <ul class="list-disc ms-10">
+                            <li>organskog uzgoja bez pesticida</li>
+                            <li>živog tla i no-till pristupa</li>
+                            <li>ručne berbe u optimalnom trenutku</li>
+                            <li>sporog i kontroliranog sušenja</li>
+                            <li>
+                                hladne etanolne ekstrakcije koja čuva molekule
+                            </li>
+                            <li>laboratorijske analize svakog batcha</li>
+                        </ul>
+                        <p>
+                            Ovo je ekstrakt koji odražava cijelu našu filozofiju
+                            — prirodno, transparentno i bez kompromisa.
+                        </p>
+                    </article>
+                </section>
+
+                <section>
+                    <h2
+                        class="text-2xl font-extrabold tracking-tight md:text-3xl lg:text-4xl text-center p-4 mt-8"
+                    >
+                        Naša Misija
+                    </h2>
+                    <p>
+                        Naša misija je stvarati proizvode koji su pošteni, čisti
+                        i duboko ukorijenjeni u prirodi. Od samog početka vodila
+                        nas je jednostavna ideja — ne želimo biti najveći, već
+                        najiskreniji. Vjerujemo da kvalitetan ekstrakt počinje
+                        mnogo prije same bočice: u zdravom tlu, u biljkama koje
+                        rastu bez kemikalija, u poštovanju prirodnih ritmova i u
+                        uloženom ručnom radu.
+                    </p>
+                    <p>
+                        Zato uzgoju pristupamo s najvećom pažnjom. Naša
+                        filozofija je raditi s prirodom, a ne protiv nje —
+                        koristiti živu zemlju, organske izvore hranjivih tvari i
+                        održive metode koje čuvaju tlo i biljku. Uvijek biramo
+                        sporiji, zahtjevniji put jer znamo da samo tako nastaje
+                        biljni materijal vrhunske kvalitete.
+                    </p>
+                    <p>
+                        Isto vrijedi i za ekstrakciju. Čak i najkvalitetniji
+                        cvijet može izgubiti svoju vrijednost ako se ne obradi
+                        stručno i pažljivo. Zato koristimo metode koje očuvaju
+                        ono najvažnije — kanabinoide, terpene, aromu i čistoću
+                        ekstrakta — uz potpunu transparentnost laboratorijskih
+                        analiza.
+                    </p>
+                    <p>
+                        Sve što radimo, u svakoj fazi proizvodnje, ima samo
+                        jednu svrhu: stvoriti ekstrakt koji je čist, siguran i
+                        stvarno koristan.
+                    </p>
+                    <p>
+                        Naša misija je poboljšati dobrobit ljudi kroz prirodu,
+                        znanje i iskren, održiv pristup svakom koraku
+                        proizvodnje.
+                    </p>
+                </section>
+            </div>
+        </main>
+
+        <footer class="bg-gold-500 py-8 text-center text-sm border-t mt-6">
+            &copy; 2025 Panonicana. Sva prava pridržana.
+        </footer>
+
+        <script>
+            function toggleMenu() {
+                const menu = document.getElementById('mobile-menu');
+                const line1 = document.getElementById('line1');
+                const line2 = document.getElementById('line2');
+                const line3 = document.getElementById('line3');
+                const links = document.querySelectorAll('.mobile-link');
+
+                const isOpen = menu.style.display === 'block';
+
+                if (!isOpen) {
+                    // Otvori menu
+                    menu.style.display = 'block';
+                    gsap.fromTo(
+                        menu,
+                        { y: -20, opacity: 0, height: 0 },
+                        {
+                            y: 0,
+                            opacity: 1,
+                            height: 'auto',
+                            duration: 0.4,
+                            ease: 'power2.out',
+                        }
+                    );
+                    gsap.from(links, {
+                        opacity: 0,
+                        y: 10,
+                        duration: 0.3,
+                        stagger: 0.1,
+                        ease: 'power2.out',
+                        delay: 0.1,
+                    });
+
+                    // Animiraj hamburger
+                    line1.classList.add('active');
+                    line2.classList.add('active');
+                    line3.classList.add('active');
+                } else {
+                    // Zatvori menu
+                    gsap.to(links, {
+                        opacity: 0,
+                        y: -10,
+                        duration: 0.2,
+                        stagger: 0.05,
+                        ease: 'power2.in',
+                    });
+                    gsap.to(menu, {
+                        opacity: 0,
+                        height: 0,
+                        duration: 0.3,
+                        ease: 'power2.in',
+                        onComplete: () => {
+                            menu.style.display = 'none';
+                            gsap.set(links, { opacity: 1, y: 0 });
+                        },
+                    });
+
+                    // Resetiraj hamburger
+                    line1.classList.remove('active');
+                    line2.classList.remove('active');
+                    line3.classList.remove('active');
+                }
+            }
+        </script>
+    </body>
+</html>
